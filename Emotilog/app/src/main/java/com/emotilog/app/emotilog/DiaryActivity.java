@@ -13,7 +13,7 @@ public class DiaryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_diary);
     }
 
-    public void AddEntry(View view) {
+    public void AddEntry (View view) {
         Intent intent = new Intent(this, AddEntryActivity.class);
         startActivity(intent);
     }
