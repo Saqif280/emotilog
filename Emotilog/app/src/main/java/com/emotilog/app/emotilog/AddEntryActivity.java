@@ -3,20 +3,26 @@ package com.emotilog.app.emotilog;
 
 
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -40,10 +46,16 @@ public class AddEntryActivity extends AppCompatActivity {
     private String picPath;
     private Uri imageUri;
 
+    private MyDatabaseHelper dbHelper;
+    private int emoji_id=0;
+    private ByteArrayOutputStream os=null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_entry);
+        dbHelper = new MyDatabaseHelper(this,"Entry.db",null,1);
+
     }
 
     //when user click on emoji
@@ -78,22 +90,27 @@ public class AddEntryActivity extends AppCompatActivity {
             case R.id.emoji1_down:
                 emojiup=(ImageView) findViewById(R.id.emoji1_up);
                 findViewById(R.id.emoji1_up).setVisibility(View.VISIBLE);
+                emoji_id=1;
                 break;
             case R.id.emoji2_down:
                 emojiup=(ImageView) findViewById(R.id.emoji2_up);
                 findViewById(R.id.emoji2_up).setVisibility(View.VISIBLE);
+                emoji_id=2;
                 break;
             case R.id.emoji3_down:
                 emojiup=(ImageView) findViewById(R.id.emoji3_up);
                 findViewById(R.id.emoji3_up).setVisibility(View.VISIBLE);
+                emoji_id=3;
                 break;
             case R.id.emoji4_down:
                 emojiup=(ImageView) findViewById(R.id.emoji4_up);
                 findViewById(R.id.emoji4_up).setVisibility(View.VISIBLE);
+                emoji_id=4;
                 break;
             case R.id.emoji5_down:
                 emojiup=(ImageView) findViewById(R.id.emoji5_up);
                 findViewById(R.id.emoji5_up).setVisibility(View.VISIBLE);
+                emoji_id=5;
                 break;
         }
     }
@@ -134,6 +151,7 @@ public class AddEntryActivity extends AppCompatActivity {
 
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
@@ -156,6 +174,7 @@ public class AddEntryActivity extends AppCompatActivity {
                     Bitmap photo = extras.getParcelable("data");
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     photo.compress(Bitmap.CompressFormat.JPEG, 100, stream);// (0-100)压缩文件
+                    os=stream;
                     //此处可以把Bitmap保存到sd卡中，具体请看：http://www.cnblogs.com/linjiqin/archive/2011/12/28/2304940.html
                     ((ImageView)findViewById(R.id.new_entry_photo)).setImageBitmap(photo); //把图片显示在ImageView控件上
                 }
@@ -175,6 +194,49 @@ public class AddEntryActivity extends AppCompatActivity {
         intent.putExtra("return-data", true);
         startActivityForResult(intent, PHOTO_RESOULT);
     }
+
+
+    public void savetodatabase(View v){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
+        Date date = new Date(System.currentTimeMillis());
+        String time_tag = format.format(date);
+
+        ContentValues values = new ContentValues();
+        //开始组装第一条数据
+        values.put("state",((EditText)findViewById(R.id.new_entry_text)).getText().toString());
+        values.put("emoji_id", emoji_id);
+        values.put("time", time_tag);
+        if(os!=null)
+            values.put("image", os.toByteArray());
+        //插入第一条数据
+        db.insert("Entry", null, values);
+        Toast.makeText(this, "save successfully", Toast.LENGTH_SHORT).show();
+        
+    }
+/*
+    public void showentry(View v) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        //查询Book表中的所有数据
+        Cursor cursor = db.query("Entry", null, null, null, null, null, null, null);
+        //遍历Curosr对象，取出数据并打印
+        while (cursor.moveToNext()) {
+            String state = cursor.getString(cursor.getColumnIndex("state"));
+            String time = cursor.getString(cursor.getColumnIndex("time"));
+            int emoji = cursor.getInt(cursor.getColumnIndex("emoji_id"));
+            ImageView imageView = (ImageView) findViewById(R.id.img);
+            byte[] data = cursor.getBlob(cursor.getColumnIndex("image"));
+            imageView.setImageBitmap(BitmapFactory.decodeByteArray(data, 0, data.length));
+
+            Log.d("Entry", "state:" + state + " time:"
+                    + time + " emoji_id:" + emoji);
+        }
+        //关闭Cursor
+        cursor.close();
+    }*/
+
+
+
 
 
 
