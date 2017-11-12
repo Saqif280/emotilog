@@ -7,17 +7,13 @@
     tools:context="com.emotilog.app.emotilog.DiaryActivity">
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="40dp"
         android:layout_marginEnd="40dp"
-        android:clickable="true"
-        android:elevation="8dp"
-        android:focusable="true"
-        android:onClick="AddEntry"
         android:scaleType="center"
         android:tint="@android:color/white"
         app:backgroundTint="#D50000"
@@ -26,8 +22,9 @@
 
     <ListView
         android:id="@+id/list_view_id"
+        android:background="@android:color/background_dark"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        />
 
-    </ListView>
 </RelativeLayout>

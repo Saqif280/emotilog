@@ -47,15 +47,19 @@ public class AddEntryActivity extends AppCompatActivity {
     private Uri imageUri;
 
     private MyDatabaseHelper dbHelper;
-    private int emoji_id=0;
+    private int emoji_id;
     private ByteArrayOutputStream os=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_entry);
-        dbHelper = new MyDatabaseHelper(this,"Entry.db",null,1);
+        dbHelper = new MyDatabaseHelper(this,MyDatabaseHelper.DATABASE_NAME,null,1);
 
+    }
+
+    public void update(View v){
+        dbHelper.onUpgrade(dbHelper.getWritableDatabase(),1,2);
     }
 
     //when user click on emoji
@@ -197,7 +201,18 @@ public class AddEntryActivity extends AppCompatActivity {
 
 
     public void savetodatabase(View v){
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Entry entry=new Entry();
+        entry.TEXT=((EditText)findViewById(R.id.new_entry_text)).getText().toString();
+        entry.FEALING=emoji_id;
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
+        Date date = new Date(System.currentTimeMillis());
+        String time_tag = format.format(date);
+        Log.e("time: ",""+time_tag);
+        entry.DATE_TIME=time_tag;
+        if(os!=null)entry.PHOTO=os.toByteArray();
+        dbHelper.addEntry(entry);
+
+        /*SQLiteDatabase db = dbHelper.getWritableDatabase();
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
         Date date = new Date(System.currentTimeMillis());
         String time_tag = format.format(date);
@@ -210,9 +225,9 @@ public class AddEntryActivity extends AppCompatActivity {
         if(os!=null)
             values.put("image", os.toByteArray());
         //插入第一条数据
-        db.insert("Entry", null, values);
+        db.insert("Entry", null, values);*/
         Toast.makeText(this, "save successfully", Toast.LENGTH_SHORT).show();
-        
+
     }
 /*
     public void showentry(View v) {
@@ -234,10 +249,4 @@ public class AddEntryActivity extends AppCompatActivity {
         //关闭Cursor
         cursor.close();
     }*/
-
-
-
-
-
-
 }
