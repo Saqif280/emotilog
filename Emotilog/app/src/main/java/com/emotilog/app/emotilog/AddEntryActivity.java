@@ -69,7 +69,7 @@ public class AddEntryActivity extends AppCompatActivity {
 
         if(emojiup!=null)
         {
-            emojiup.setVisibility(View.GONE);
+            emojiup.setVisibility(View.INVISIBLE);
             switch(emojiup.getId()){
                 case R.id.emoji1_up:
                     findViewById(R.id.emoji1_down).setVisibility(View.VISIBLE);
@@ -89,7 +89,7 @@ public class AddEntryActivity extends AppCompatActivity {
             }
 
         }
-        v.setVisibility(View.GONE);
+        v.setVisibility(View.INVISIBLE);
         switch(v.getId()){
             case R.id.emoji1_down:
                 emojiup=(ImageView) findViewById(R.id.emoji1_up);
