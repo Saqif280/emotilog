@@ -3,6 +3,7 @@ package com.emotilog.app.emotilog;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import static android.R.attr.data;
 import static android.R.attr.id;
 import static android.R.attr.name;
 import static android.os.Build.ID;
@@ -78,7 +80,7 @@ public class DiaryEntryActivity extends AppCompatActivity {
         //Log.e("ok","dopo swith");
         display_date.setText(e.DATE_TIME);
         diaryText.setText(e.TEXT);
-        if(e.PHOTO!=null) {/*photo.setImageBitmap( e.PHOTO);*/} //e.PHOTO is byte[] ask to chris
+        if(e.PHOTO!=null) photo.setImageBitmap(BitmapFactory.decodeByteArray(e.PHOTO, 0, e.PHOTO.length));
         else photo.setVisibility(View.INVISIBLE);
 
         //locText.setText("Location: "+"\n"+e.LOCATION.substring(e.LOCATION.lastIndexOf("=")+1));

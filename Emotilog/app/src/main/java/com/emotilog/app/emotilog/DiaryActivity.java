@@ -34,7 +34,12 @@ import static com.emotilog.app.emotilog.MyDatabaseHelper.TABLE_ENTRYS;
 import static com.emotilog.app.emotilog.R.id.location;
 import static com.emotilog.app.emotilog.R.id.new_entry_photo;
 
+/**
+ * Created by Siopis Christos on 2017/10/29.
+ */
+
 public class DiaryActivity extends AppCompatActivity {
+
     public ListView listView;
     private ArrayList<String> stringArrayList;
     private ArrayAdapter<String> stringArrayAdapter;
@@ -44,8 +49,8 @@ public class DiaryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary);
-        dbHelper = new MyDatabaseHelper(this,MyDatabaseHelper.DATABASE_NAME ,null,1);
-        listView = (ListView) findViewById(R.id.list_view_id);
+
+        //opens the AddEntryActivity
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,53 +60,35 @@ public class DiaryActivity extends AppCompatActivity {
             }
 
         });
-        final List<Entry> entrys= dbHelper.getAllEntry();//new ArrayList<Entry>();
-        //entrys=dbHelper.getAllEntry();
-        Log.e("number of entrys",""+entrys.size());
-        stringArrayList= new ArrayList<String>();
-        stringArrayAdapter =new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1,stringArrayList);
+
+        dbHelper = new MyDatabaseHelper(this, MyDatabaseHelper.DATABASE_NAME, null, 1);
+        listView = (ListView) findViewById(R.id.list_view_id); //connects the xml file with the java file
+        final List<Entry> entrys = dbHelper.getAllEntry(); //retrieves data from the database and insert the to the list
+
+        stringArrayList = new ArrayList<>(); //creating a new listArray calling the ArrayLIst method
+        stringArrayAdapter = new ArrayAdapter<>(getApplicationContext(),
+                android.R.layout.simple_list_item_1, stringArrayList); //
         listView.setAdapter(stringArrayAdapter);
 
-        int size=entrys.size();
-        for(int i=0;i<size;i++){
-            Log.e("number of entrys",""+i);
-
-            stringArrayList.add( entrys.get(i).DATE_TIME.toString());
-
-            Log.e("text ",entrys.get(i).TEXT.toString());
-            //Log.e("location ",entrys.get(i).LOCATION.toString());
-            Log.e("date_time ",""+entrys.get(i).DATE_TIME);
-            Log.e("fealing ",""+entrys.get(i).FEALING);
+        int size = entrys.size(); //return the entries of the column ID in the database
+        for (int i = 0; i < size; i++) {
+            stringArrayList.add(entrys.get(i).DATE_TIME.toString()); //displays the date and time in format "yyyy-MM-dd HH:mm"  in the listView
         }
 
-        //stringArrayList.add(entry.TEXT.toString());
-        //stringArrayList.add("test2");
-
-
         stringArrayAdapter.notifyDataSetChanged();
-        Log.e("after the for"," ok");
-        //button.setOnClickListener(new View.OnClickListener()
 
-        Log.e("before click", "ok");
+        //when one item is clicked on the list, opens the DiaryEntryActivity
+        //and sends the rows' id to DiaryEntryActivity
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long i) {
-                Log.e("when i click", "ok");
-
                 Intent intent = new Intent(DiaryActivity.this, DiaryEntryActivity.class);
-                Log.e("id= ",""+entrys.get(position).ID);
-                intent.putExtra("id", entrys.get(position).ID); //returns rows' id
-                //intent.putExtra("display_date", listView.getItemAtPosition(position).toString());//returns date and time
-
+                intent.putExtra("id", entrys.get(position).ID);
                 startActivity(intent);
-
-                Log.e("after startActivity","ok");
-
             }
 
         });
-
 
 
     }
