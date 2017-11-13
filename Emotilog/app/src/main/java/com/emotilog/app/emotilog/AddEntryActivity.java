@@ -225,7 +225,7 @@ public class AddEntryActivity extends AppCompatActivity {
         Entry entry=new Entry();
         entry.TEXT=((EditText)findViewById(R.id.new_entry_text)).getText().toString();
         entry.FEALING=emoji_id;
-        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd' 'HH:mm");
         Date date = new Date(System.currentTimeMillis());
         String time_tag = format.format(date);
         Log.e("time: ",""+time_tag);

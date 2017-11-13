@@ -67,6 +67,7 @@ public class DiaryActivity extends AppCompatActivity {
             Log.e("number of entrys",""+i);
 
             stringArrayList.add( entrys.get(i).DATE_TIME.toString());
+
             Log.e("text ",entrys.get(i).TEXT.toString());
             //Log.e("location ",entrys.get(i).LOCATION.toString());
             Log.e("date_time ",""+entrys.get(i).DATE_TIME);
