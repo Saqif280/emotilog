@@ -1,3 +1,6 @@
+/**
+ * Created by Saqif Badruddin: 17200777
+ * */
 package com.emotilog.app.emotilog;
 
 import android.content.ComponentName;
@@ -15,9 +18,9 @@ public class GetHelpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_get_help);
     }
 
-    /** Called when the user taps the Send button */
+    /** press to open contacts app */
     public void contactFriend(View view) {
-//        https://stackoverflow.com/questions/5787088/android-launching-contacts-application
+        // https://stackoverflow.com/questions/5787088/android-launching-contacts-application
         Intent intent = new Intent();
         intent.setComponent(new ComponentName("com.android.contacts", "com.android.contacts.DialtactsContactsEntryActivity"));
         intent.setAction("android.intent.action.MAIN");
@@ -26,7 +29,7 @@ public class GetHelpActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    /** Called when the user taps the Send button */
+    /** press to open google maps with a search query of therapists nearby */
     public void contactProfessional(View view) {
         Uri gmmIntentUri = Uri.parse("geo:0,0?q=therapists+near+me");
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
