@@ -20,6 +20,8 @@ import android.widget.TextView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -78,7 +80,6 @@ public class DiaryActivity extends AppCompatActivity {
 
                 TextView textView=(TextView) view.findViewById(android.R.id.text1);
 
-            /*YOUR CHOICE OF COLOR*/
                 textView.setTextColor(Color.BLACK);
 
                 return view;
@@ -90,9 +91,10 @@ public class DiaryActivity extends AppCompatActivity {
 
         int size = entrys.size(); //return the entries of the column ID in the database
         for (int i = 0; i < size; i++) {
-            stringArrayList.add(entrys.get(i).DATE_TIME.toString()); //displays the date and time in format "yyyy-MM-dd HH:mm"  in the listView
+            stringArrayList.add(entrys.get(i).DATE_TIME.toString()); //displays the date and time in the listView
         }
 
+        Collections.reverse(stringArrayList);
         stringArrayAdapter.notifyDataSetChanged();
 
         //when one item is clicked on the list, opens the DiaryEntryActivity
