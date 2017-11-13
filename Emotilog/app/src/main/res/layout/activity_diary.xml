@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.emotilog.app.emotilog.DiaryActivity">
+    tools:context="com.emotilog.app.emotilog.DiaryActivity"
+    android:background="#FFFFFF">
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -23,7 +24,6 @@
     <ListView
         android:id="@+id/list_view_id"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/background_light" />
+        android:layout_height="match_parent" />
 
 </RelativeLayout>

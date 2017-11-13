@@ -5,15 +5,18 @@ import android.content.Intent;
 import android.content.pm.LabeledIntent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -66,8 +69,23 @@ public class DiaryActivity extends AppCompatActivity {
         final List<Entry> entrys = dbHelper.getAllEntry(); //retrieves data from the database and insert the to the list
 
         stringArrayList = new ArrayList<>(); //creating a new listArray calling the ArrayLIst method
-        stringArrayAdapter = new ArrayAdapter<>(getApplicationContext(),
-                android.R.layout.simple_list_item_1, stringArrayList); //
+        stringArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
+                stringArrayList){
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view =super.getView(position, convertView, parent);
+
+                TextView textView=(TextView) view.findViewById(android.R.id.text1);
+
+            /*YOUR CHOICE OF COLOR*/
+                textView.setTextColor(Color.BLACK);
+
+                return view;
+            }
+        };;
+        ListView listView = (ListView) findViewById(R.id.list_view_id);
+        listView.getSolidColor();
         listView.setAdapter(stringArrayAdapter);
 
         int size = entrys.size(); //return the entries of the column ID in the database
