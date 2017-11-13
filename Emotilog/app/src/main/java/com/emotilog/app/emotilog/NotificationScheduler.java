@@ -98,7 +98,7 @@ public class NotificationScheduler {
         Notification notification= builder
                 .setContentTitle(title)
                 .setContentText(content)
-                .setSmallIcon(R.mipmap.ic_launcher_round)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setAutoCancel(true)
                 .setSound(alarmSound)
                 .setContentIntent(pendingIntent).build();
