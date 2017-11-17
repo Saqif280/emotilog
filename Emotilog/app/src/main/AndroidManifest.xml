@@ -3,7 +3,7 @@
     package="com.emotilog.app.emotilog">
 
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -69,7 +69,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".DiaryActivity" />
         </activity>
-        <activity android:name=".SettingsActivity"
+        <activity
+            android:name=".SettingsActivity"
             android:label="Settings"
             android:parentActivityName=".MainActivity">
 
@@ -84,9 +85,53 @@
             android:enabled="true"
             android:exported="false">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name=".AnalyticsActivity"
+            android:label="Analytics"
+            android:parentActivityName=".MainActivity">
+
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".PieChartActivity"
+            android:label="Pie Graph"
+            android:parentActivityName=".AnalyticsActivity">
+
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".AnalyticsActivity" />
+        </activity>
+
+        <activity
+            android:name=".LineChartActivity"
+            android:label="Line Graph"
+            android:parentActivityName=".AnalyticsActivity">
+
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".AnalyticsActivity" />
+        </activity>
+
+        <activity android:name=".BarChartActivity"
+            android:label="Bar Graph"
+            android:parentActivityName=".AnalyticsActivity">
+
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".AnalyticsActivity" />
+        </activity>
+
     </application>
 
 </manifest>

@@ -42,4 +42,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void openAnalytics (View view) {
+        Intent intent = new Intent(this, AnalyticsActivity.class);
+        startActivity(intent);
+    }
+
 }

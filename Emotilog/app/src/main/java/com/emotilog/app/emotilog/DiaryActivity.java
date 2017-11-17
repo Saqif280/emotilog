@@ -1,47 +1,29 @@
 package com.emotilog.app.emotilog;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.LabeledIntent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.StringTokenizer;
-
-import static android.Manifest.permission_group.LOCATION;
-import static android.R.attr.id;
-import static android.R.attr.value;
-import static android.R.id.list;
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
-import static android.icu.lang.UCharacter.JoiningGroup.FE;
-import static android.nfc.NfcAdapter.EXTRA_ID;
-import static android.os.Build.ID;
-import static android.os.Build.VERSION_CODES.M;
-import static android.provider.Contacts.SettingsColumns.KEY;
-import static com.emotilog.app.emotilog.MyDatabaseHelper.TABLE_ENTRYS;
-import static com.emotilog.app.emotilog.R.id.location;
-import static com.emotilog.app.emotilog.R.id.new_entry_photo;
 
 /**
  * Created by Siopis Christos on 2017/10/29.
  */
+
+//DiaryActivity retrieves data from the database
+//and displays these data in the form of a clickable ListView,
+//putting the most recent entry to the top of the list
 
 public class DiaryActivity extends AppCompatActivity {
 
@@ -67,31 +49,35 @@ public class DiaryActivity extends AppCompatActivity {
         });
 
         dbHelper = new MyDatabaseHelper(this, MyDatabaseHelper.DATABASE_NAME, null, 1);
-        listView = (ListView) findViewById(R.id.list_view_id); //connects the xml file with the java file
-        final List<Entry> entrys = dbHelper.getAllEntry(); //retrieves data from the database and insert the to the list
+        listView = (ListView) findViewById(R.id.list_view_id);
+        final List<Entry> entrys = dbHelper.getAllEntry();
 
-        stringArrayList = new ArrayList<>(); //creating a new listArray calling the ArrayLIst method
+        stringArrayList = new ArrayList<>();
         stringArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
-                stringArrayList){
+                stringArrayList) {
 
+            //turns the color of the text, in the ListView, into black
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
-                View view =super.getView(position, convertView, parent);
+                View view = super.getView(position, convertView, parent);
 
-                TextView textView=(TextView) view.findViewById(android.R.id.text1);
+                TextView textView = (TextView) view.findViewById(android.R.id.text1);
 
                 textView.setTextColor(Color.BLACK);
 
                 return view;
             }
-        };;
-        ListView listView = (ListView) findViewById(R.id.list_view_id);
+        };
+
         listView.getSolidColor();
         listView.setAdapter(stringArrayAdapter);
 
-        int size = entrys.size(); //return the entries of the column ID in the database
+        //populates the ListView with all the entries from the
+        //database and displays to the user the date and the time
+        //of the entry
+        int size = entrys.size();
         for (int i = 0; i < size; i++) {
-            stringArrayList.add(entrys.get(i).DATE_TIME.toString()); //displays the date and time in the listView
+            stringArrayList.add(entrys.get(i).DATE_TIME.toString());
         }
 
         Collections.reverse(stringArrayList);
@@ -109,7 +95,5 @@ public class DiaryActivity extends AppCompatActivity {
             }
 
         });
-
-
     }
 }
