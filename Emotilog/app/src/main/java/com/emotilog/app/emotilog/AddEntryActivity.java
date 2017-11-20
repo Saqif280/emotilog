@@ -45,19 +45,22 @@ import java.util.List;
 
 /**
  * Created by Chen on 2017/10/29.
+ * This activity is for creating the entry and save it.
  */
 
 public class AddEntryActivity extends AppCompatActivity {
-    ImageView emojiup;
-    private static final int PHOTO_GRAPH = 1;// take picture
-    private static final int PHOTO_ZOOM = 2; // zoom phtoto
-    private static final int PHOTO_RESOULT = 3;// the result
+    ImageView emojiup;//record the chosed emoji view
+    private static final int PHOTO_GRAPH = 1;// request code of taking picture
+    private static final int PHOTO_ZOOM = 2; // request code of zooming phtoto
+    private static final int PHOTO_RESOULT = 3;// request code of the result
     private static final String IMAGE_UNSPECIFIED = "image/*";
+    private static final int SHAKE_SCORE = 4;//request code of getting shaking score
 
 
     private MyDatabaseHelper dbHelper;
-    private int emoji_id;
+    private int emoji_id=0;
     private ByteArrayOutputStream os=null;
+    private int shakescore=0;
 
 
     private TextView postionView;
@@ -71,11 +74,11 @@ public class AddEntryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_entry);
         dbHelper = new MyDatabaseHelper(this,MyDatabaseHelper.DATABASE_NAME,null,1);
 
+
         //TextView for location
         postionView = (TextView) findViewById(R.id.textView6);
-        //获取地理位置管理器
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        //获取所有可用的位置提供器
+
         List<String> providers = locationManager.getProviders(true);
         if(providers.contains(LocationManager.GPS_PROVIDER)){
             //if the phone has a GPS sensor
@@ -107,7 +110,7 @@ public class AddEntryActivity extends AppCompatActivity {
 
 
 
-    private void showLocation(Location location){
+    private void showLocation(Location location){//show the loacation in the textview
         Geocoder gc = new Geocoder(this);
         List<Address> addresses = null;
         String msg = "";
@@ -138,7 +141,7 @@ public class AddEntryActivity extends AppCompatActivity {
     }
 
 
-    LocationListener locationListener =  new LocationListener() {
+    LocationListener locationListener =  new LocationListener() {//set location listener
 
         @Override
         public void onStatusChanged(String provider, int status, Bundle arg2) {
@@ -165,11 +168,11 @@ public class AddEntryActivity extends AppCompatActivity {
 
 
     /*public void update(View v){
-        dbHelper.onUpgrade(dbHelper.getWritableDatabase(),1,2);
+        dbHelper.onUpgrade(dbHelper.getWritableDatabase(),2,3);
     }*/
 
     //when user click on emoji
-    public void EmojionClick(View v) {
+    public void EmojionClick(View v) {//change the clicked emoji to color graph, change former clicked one to BW; change the emoji code.
         if(v==emojiup)
             return;
 
@@ -225,15 +228,19 @@ public class AddEntryActivity extends AppCompatActivity {
         }
     }
 
+    public void shakingonclick(View v){//call shaking activity
+        Intent intent = new Intent(this, Shaking.class);
+        startActivityForResult(intent,SHAKE_SCORE);
+    }
     //when user click choose from album
-    public void choosefromalbum(View v)
+    public void choosefromalbum(View v)//call intent to gallery
     {
         Intent intent = new Intent(Intent.ACTION_PICK, null);
         intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, IMAGE_UNSPECIFIED);
         startActivityForResult(intent, PHOTO_ZOOM);
     }
     //when user click take a photo
-    public void takeaphoto(View v)
+    public void takeaphoto(View v)//call camera
     {
         if (Build.VERSION.SDK_INT >= 23) {
             int checkCallPhonePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
@@ -264,7 +271,8 @@ public class AddEntryActivity extends AppCompatActivity {
             locationManager.removeUpdates(locationListener);
         }
     }
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {//check the permission of camera
         switch (requestCode) {
             case 222:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -281,10 +289,10 @@ public class AddEntryActivity extends AppCompatActivity {
         }
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){//override onActivityResult
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK||data==null) {
-            Toast.makeText(getApplicationContext(),"error",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"No data back",Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -312,17 +320,27 @@ public class AddEntryActivity extends AppCompatActivity {
                     ((ImageView)findViewById(R.id.new_entry_photo)).setVisibility(View.VISIBLE);
                     ((ImageView)findViewById(R.id.new_entry_photo)).setImageBitmap(photo_al); //show the picture
                 }
+                break;
+            case SHAKE_SCORE:
+                Bundle shake_extras=data.getExtras();
+                if(shake_extras !=null)
+                {
+                    int shake_score = shake_extras.getInt("result");
+                    shakescore=shake_score;
+                }
+                break;
+
 
         }
     }
-    public void startPhotoZoom(Uri uri) {
+    public void startPhotoZoom(Uri uri) {//zoom the picture from gallery
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uri, IMAGE_UNSPECIFIED);
         intent.putExtra("crop", "true");
-        // aspectX aspectY 是宽高的比例
+        // aspectX aspectY
         intent.putExtra("aspectX", 4);
         intent.putExtra("aspectY", 3);
-        // outputX outputY 是裁剪图片宽高
+        // outputX outputY
         intent.putExtra("outputX", 400);
         intent.putExtra("outputY", 300);
         intent.putExtra("return-data", true);
@@ -330,7 +348,12 @@ public class AddEntryActivity extends AppCompatActivity {
     }
 
 
-    public void savetodatabase(View v){
+    public void savetodatabase(View v){//save to entry
+        if(((EditText)findViewById(R.id.new_entry_text)).getText().toString()==null||emoji_id==0)
+        {
+            Toast.makeText(this, "Please say something and choose a emoji.", Toast.LENGTH_SHORT).show();
+            return;
+        }
         Entry entry=new Entry();
         entry.TEXT=((EditText)findViewById(R.id.new_entry_text)).getText().toString();
         entry.FEALING=emoji_id;
@@ -340,6 +363,7 @@ public class AddEntryActivity extends AppCompatActivity {
         Log.e("time: ",""+time_tag);
         entry.DATE_TIME=time_tag;
         if(os!=null)entry.PHOTO=os.toByteArray();
+        if(shakescore!=0)entry.SHAKESCORE=shakescore;
 
         if(location!=null)
         {
@@ -347,44 +371,12 @@ public class AddEntryActivity extends AppCompatActivity {
         }
         dbHelper.addEntry(entry);
 
-
-        /*SQLiteDatabase db = dbHelper.getWritableDatabase();
-        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
-        Date date = new Date(System.currentTimeMillis());
-        String time_tag = format.format(date);
-
-        ContentValues values = new ContentValues();
-        //开始组装第一条数据
-        values.put("state",((EditText)findViewById(R.id.new_entry_text)).getText().toString());
-        values.put("emoji_id", emoji_id);
-        values.put("time", time_tag);
-        if(os!=null)
-            values.put("image", os.toByteArray());
-        //插入第一条数据
-        db.insert("Entry", null, values);*/
         Toast.makeText(this, "save successfully", Toast.LENGTH_SHORT).show();
         finish();
 
 
     }
-/*
-    public void showentry(View v) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        //查询Book表中的所有数据
-        Cursor cursor = db.query("Entry", null, null, null, null, null, null, null);
-        //遍历Curosr对象，取出数据并打印
-        while (cursor.moveToNext()) {
-            String state = cursor.getString(cursor.getColumnIndex("state"));
-            String time = cursor.getString(cursor.getColumnIndex("time"));
-            int emoji = cursor.getInt(cursor.getColumnIndex("emoji_id"));
-            ImageView imageView = (ImageView) findViewById(R.id.img);
-            byte[] data = cursor.getBlob(cursor.getColumnIndex("image"));
-            imageView.setImageBitmap(BitmapFactory.decodeByteArray(data, 0, data.length));
 
-            Log.d("Entry", "state:" + state + " time:"
-                    + time + " emoji_id:" + emoji);
-        }
-        //关闭Cursor
-        cursor.close();
-    }*/
+
+
 }

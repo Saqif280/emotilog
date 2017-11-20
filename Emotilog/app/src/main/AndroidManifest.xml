@@ -47,6 +47,7 @@
         <activity
             android:name=".AddEntryActivity"
             android:label="Add Entry"
+            android:launchMode="singleTop"
             android:parentActivityName=".MainActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
@@ -82,6 +83,16 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".Shaking"
+            android:label="Shaking"
+            android:parentActivityName=".AddEntryActivity">
+
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".AddEntryActivity" />
         </activity>
 
         <receiver

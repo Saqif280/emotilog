@@ -25,6 +25,7 @@ public class Entry {
     public byte[] PHOTO; //es. "@drawable/angry_bw.png";
     public int FEALING;
     public String LOCATION; //es. "39.953564, 8.673308";
+    public int SHAKESCORE;
 
 
     public Entry(){
@@ -48,9 +49,12 @@ public class Entry {
         return this.FEALING;
     }
 
+    public int getShakescore(){ return this.SHAKESCORE; }
+
     public String getLocation(){
         return this.LOCATION;
     }
+
 }
 
 
