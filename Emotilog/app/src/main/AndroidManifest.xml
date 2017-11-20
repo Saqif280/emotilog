@@ -27,7 +27,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,6 +36,7 @@
         </activity>
         <activity
             android:name=".GetHelpActivity"
+            android:screenOrientation="portrait"
             android:label="Get Help"
             android:parentActivityName=".MainActivity">
 
@@ -46,6 +47,7 @@
         </activity>
         <activity
             android:name=".AddEntryActivity"
+            android:screenOrientation="portrait"
             android:label="Add Entry"
             android:parentActivityName=".MainActivity">
 
@@ -56,6 +58,7 @@
         </activity>
         <activity
             android:name=".DiaryActivity"
+            android:screenOrientation="portrait"
             android:label="Diary"
             android:parentActivityName=".MainActivity">
 
@@ -66,6 +69,7 @@
         </activity>
         <activity
             android:name=".DiaryEntryActivity"
+            android:screenOrientation="portrait"
             android:label="Diary Entries"
             android:parentActivityName=".DiaryActivity">
 
@@ -76,6 +80,7 @@
         </activity>
         <activity
             android:name=".SettingsActivity"
+            android:screenOrientation="portrait"
             android:label="Settings"
             android:parentActivityName=".MainActivity">
 
@@ -96,6 +101,7 @@
 
         <activity
             android:name=".AnalyticsActivity"
+            android:screenOrientation="portrait"
             android:label="Analytics"
             android:parentActivityName=".MainActivity">
 
@@ -107,6 +113,7 @@
 
         <activity
             android:name=".PieChartActivity"
+            android:screenOrientation="portrait"
             android:label="Pie Graph"
             android:parentActivityName=".AnalyticsActivity">
 
@@ -118,6 +125,7 @@
 
         <activity
             android:name=".LineChartActivity"
+            android:screenOrientation="portrait"
             android:label="Line Graph"
             android:parentActivityName=".AnalyticsActivity">
 
@@ -128,6 +136,7 @@
         </activity>
 
         <activity android:name=".BarChartActivity"
+            android:screenOrientation="portrait"
             android:label="Bar Graph"
             android:parentActivityName=".AnalyticsActivity">
 
