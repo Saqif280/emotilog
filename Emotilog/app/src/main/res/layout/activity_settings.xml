@@ -90,10 +90,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:text="Delete DB"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="16dp"
         android:onClick="update"
-        android:layout_marginTop="20dp"
+        android:text="Clear all entries"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/llReminder" />
 
 </android.support.constraint.ConstraintLayout>
