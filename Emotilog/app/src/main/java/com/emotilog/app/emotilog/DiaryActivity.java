@@ -50,7 +50,7 @@ public class DiaryActivity extends AppCompatActivity {
 
         dbHelper = new MyDatabaseHelper(this, MyDatabaseHelper.DATABASE_NAME, null, 1);
         listView = (ListView) findViewById(R.id.list_view_id);
-        final List<Entry> entrys = dbHelper.getAllEntry();
+        final List<Entry> entrys = dbHelper.getAllReverseEntry();
 
         stringArrayList = new ArrayList<>();
         stringArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
@@ -75,12 +75,11 @@ public class DiaryActivity extends AppCompatActivity {
         //populates the ListView with all the entries from the
         //database and displays to the user the date and the time
         //of the entry
-        int size = entrys.size();
+        final int size = entrys.size();
         for (int i = 0; i < size; i++) {
             stringArrayList.add(entrys.get(i).DATE_TIME.toString());
         }
 
-        Collections.reverse(stringArrayList);
         stringArrayAdapter.notifyDataSetChanged();
 
         //when one item is clicked on the list, opens the DiaryEntryActivity
@@ -88,12 +87,11 @@ public class DiaryActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long i) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long Long) {
                 Intent intent = new Intent(DiaryActivity.this, DiaryEntryActivity.class);
                 intent.putExtra("id", entrys.get(position).ID);
                 startActivity(intent);
             }
-
         });
     }
 }
