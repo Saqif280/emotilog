@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import static android.R.attr.data;
 import static android.R.attr.id;
@@ -60,11 +61,12 @@ public class DiaryEntryActivity extends AppCompatActivity {
         showinmaps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri gmmIntentUri = Uri.parse(e.LOCATION.toString());
-                Intent ShowInMapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-                ShowInMapIntent.setPackage("com.google.android.apps.maps");
-                startActivity(ShowInMapIntent);
-            }
+                if(e.getLocation()!=null) {
+                    Uri gmmIntentUri = Uri.parse(e.LOCATION.toString());
+                    Intent ShowInMapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                    ShowInMapIntent.setPackage("com.google.android.apps.maps");
+                    startActivity(ShowInMapIntent);
+                }}
         });
         //Log.e("ok","prima swith");
         if (e.FEALING == 1)

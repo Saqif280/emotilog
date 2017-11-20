@@ -27,7 +27,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class SettingsActivity extends AppCompatActivity {
-
+    private MyDatabaseHelper dbHelper;
     String TAG= "RemindMe";
     LocalData localData;
 
@@ -43,7 +43,7 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-
+        dbHelper = new MyDatabaseHelper(this,"entrys_db",null,1);
         localData=new LocalData(getApplicationContext());
 
         myClipboard= (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
@@ -91,7 +91,9 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
     }
-
+    public void update(View v){
+        dbHelper.onUpgrade(dbHelper.getWritableDatabase(),1,2);
+    }
     private void showTimePickerDialog(int h,int m){
 
         LayoutInflater inflater=getLayoutInflater();

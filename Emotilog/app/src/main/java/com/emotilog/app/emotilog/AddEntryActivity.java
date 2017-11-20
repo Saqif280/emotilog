@@ -73,6 +73,7 @@ public class AddEntryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_entry);
         dbHelper = new MyDatabaseHelper(this,MyDatabaseHelper.DATABASE_NAME,null,1);
+        //dbHelper.onUpgrade(dbHelper.getWritableDatabase(),2,3);
 
 
         //TextView for location
