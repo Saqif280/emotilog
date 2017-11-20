@@ -2,6 +2,7 @@ package com.emotilog.app.emotilog;
 
 
         import android.content.Intent;
+        import android.content.pm.ActivityInfo;
         import android.hardware.Sensor;
         import android.hardware.SensorEvent;
         import android.hardware.SensorEventListener;
@@ -29,6 +30,7 @@ public class Shaking extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shaking);
+        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         reset = (Button) findViewById(R.id.reset);
         st = (TextView) findViewById(R.id.shake_text);

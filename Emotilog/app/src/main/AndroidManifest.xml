@@ -93,6 +93,7 @@
         <activity
             android:name=".Shaking"
             android:label="Shaking"
+            android:screenOrientation="portrait"
             android:parentActivityName=".AddEntryActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
