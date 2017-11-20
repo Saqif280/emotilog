@@ -20,7 +20,6 @@ import static android.R.attr.name;
 import static android.os.Build.ID;
 import static com.emotilog.app.emotilog.R.id.date;
 import static com.emotilog.app.emotilog.R.id.faccina;
-import static com.emotilog.app.emotilog.R.id.location;
 import static com.emotilog.app.emotilog.R.id.picoftheday;
 
 public class DiaryEntryActivity extends AppCompatActivity {
@@ -48,7 +47,6 @@ public class DiaryEntryActivity extends AppCompatActivity {
         diaryText = (TextView) findViewById(R.id.textView);
         display_date = (TextView) findViewById(R.id.date);
         showinmaps = (Button) findViewById(R.id.showLocation);
-        locText = (TextView) findViewById(location);
         emjoy=(ImageView)findViewById(faccina);
         photo=(ImageView)findViewById(picoftheday);
         //String diary_id = getIntent().getStringExtra("id");
