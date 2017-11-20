@@ -27,6 +27,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper implements BaseColumns {
     public static final String TABLE_ENTRYS = "entries";
 
     private Context myContent;
+    private Context con;
 
     //Columns names
     private static final String _ID = BaseColumns._ID;
@@ -52,6 +53,11 @@ public class MyDatabaseHelper extends SQLiteOpenHelper implements BaseColumns {
         myContent=context;
     }
 
+    public MyDatabaseHelper(Context context) {
+        super(context, "entries.db", null, 1);
+        con = context;
+    }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         //create the table
@@ -67,7 +73,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper implements BaseColumns {
         Log.e("string create table","ok");
         db.execSQL(CREATE_TABLE_ENTRY);
         //Toast.makeText(myContent, "Database built", Toast.LENGTH_SHORT).show();
-
     }
 
 
