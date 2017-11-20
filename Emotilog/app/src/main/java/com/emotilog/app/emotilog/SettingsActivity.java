@@ -8,6 +8,8 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import android.support.v7.app.ActionBar;
 
 public class SettingsActivity extends AppCompatActivity {
     private MyDatabaseHelper dbHelper;
@@ -43,6 +46,10 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#7f8c8d")));
+        this.getWindow().setStatusBarColor(Color.parseColor("#657070"));
+
         dbHelper = new MyDatabaseHelper(this,"entrys_db",null,1);
         localData=new LocalData(getApplicationContext());
 

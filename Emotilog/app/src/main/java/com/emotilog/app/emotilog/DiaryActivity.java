@@ -2,6 +2,7 @@ package com.emotilog.app.emotilog;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import android.support.v7.app.ActionBar;
 
 /**
  * Created by Siopis Christos on 2017/10/29.
@@ -37,6 +39,10 @@ public class DiaryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary);
 
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#3498db")));
+        this.getWindow().setStatusBarColor(Color.parseColor("#2979af"));
+
         //opens the AddEntryActivity
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -50,7 +56,7 @@ public class DiaryActivity extends AppCompatActivity {
 
         dbHelper = new MyDatabaseHelper(this, MyDatabaseHelper.DATABASE_NAME, null, 1);
         listView = (ListView) findViewById(R.id.list_view_id);
-        final List<Entry> entrys = dbHelper.getAllEntry();
+        final List<Entry> entrys = dbHelper.getAllReverseEntry();
 
         stringArrayList = new ArrayList<>();
         stringArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
@@ -75,12 +81,11 @@ public class DiaryActivity extends AppCompatActivity {
         //populates the ListView with all the entries from the
         //database and displays to the user the date and the time
         //of the entry
-        int size = entrys.size();
+        final int size = entrys.size();
         for (int i = 0; i < size; i++) {
             stringArrayList.add(entrys.get(i).DATE_TIME.toString());
         }
 
-        Collections.reverse(stringArrayList);
         stringArrayAdapter.notifyDataSetChanged();
 
         //when one item is clicked on the list, opens the DiaryEntryActivity
@@ -88,12 +93,11 @@ public class DiaryActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long i) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long Long) {
                 Intent intent = new Intent(DiaryActivity.this, DiaryEntryActivity.class);
                 intent.putExtra("id", entrys.get(position).ID);
                 startActivity(intent);
             }
-
         });
     }
 }

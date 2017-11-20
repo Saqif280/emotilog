@@ -4,6 +4,8 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +23,7 @@ import static android.os.Build.ID;
 import static com.emotilog.app.emotilog.R.id.date;
 import static com.emotilog.app.emotilog.R.id.faccina;
 import static com.emotilog.app.emotilog.R.id.picoftheday;
+import android.support.v7.app.ActionBar;
 
 public class DiaryEntryActivity extends AppCompatActivity {
     private ImageView emjoy;
@@ -36,6 +39,9 @@ public class DiaryEntryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary_entry);
         dbHelper = new MyDatabaseHelper(this, MyDatabaseHelper.DATABASE_NAME, null, 1);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#3498db")));
+        this.getWindow().setStatusBarColor(Color.parseColor("#2979af"));
 
         //prendo quello che mi serve
         //EntryRepo repo=new EntryRepo(this);

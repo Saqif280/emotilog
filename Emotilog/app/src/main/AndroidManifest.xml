@@ -123,41 +123,6 @@
                 android:value=".MainActivity" />
         </activity>
 
-        <activity
-            android:name=".PieChartActivity"
-            android:screenOrientation="portrait"
-            android:label="Pie Graph"
-            android:parentActivityName=".AnalyticsActivity">
-
-            <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".AnalyticsActivity" />
-        </activity>
-
-        <activity
-            android:name=".LineChartActivity"
-            android:screenOrientation="portrait"
-            android:label="Line Graph"
-            android:parentActivityName=".AnalyticsActivity">
-
-            <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".AnalyticsActivity" />
-        </activity>
-
-        <activity android:name=".BarChartActivity"
-            android:screenOrientation="portrait"
-            android:label="Bar Graph"
-            android:parentActivityName=".AnalyticsActivity">
-
-            <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".AnalyticsActivity" />
-        </activity>
-
     </application>
 
 </manifest>

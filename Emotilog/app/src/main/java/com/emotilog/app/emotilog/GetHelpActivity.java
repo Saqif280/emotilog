@@ -5,10 +5,13 @@ package com.emotilog.app.emotilog;
 
 import android.content.ComponentName;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.support.v7.app.ActionBar;
 
 public class GetHelpActivity extends AppCompatActivity {
 
@@ -16,6 +19,9 @@ public class GetHelpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_help);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#e74c3c")));
+        this.getWindow().setStatusBarColor(Color.parseColor("#b83c30"));
     }
 
     /** press to open contacts app */

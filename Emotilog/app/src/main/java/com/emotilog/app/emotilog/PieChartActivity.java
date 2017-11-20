@@ -1,5 +1,7 @@
 package com.emotilog.app.emotilog;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -10,6 +12,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.support.v7.app.ActionBar;
 
 /**
  * Created by Siopis Christos on 2017/11/16.
@@ -29,6 +32,9 @@ public class PieChartActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pie_chart);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#e67e22")));
+        this.getWindow().setStatusBarColor(Color.parseColor("#b8641b"));
 
         dbHelper = new MyDatabaseHelper(this, MyDatabaseHelper.DATABASE_NAME, null, 1);
         List<Entry> dataObjects = dbHelper.getAllEntry();
