@@ -1,14 +1,13 @@
 package com.emotilog.app.emotilog;
 
-<<<<<<< HEAD
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.support.v7.app.ActionBar;
-=======
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -19,7 +18,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
->>>>>>> c6ed71ca04b4ee4939e2e58d0824b840a9e8ebda
+
 
 /**
  * Created by Siopis Christos on 2017/11/16.
@@ -39,15 +38,15 @@ public class AnalyticsActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_analytics);
-<<<<<<< HEAD
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#e67e22")));
+        this.getWindow().setStatusBarColor(Color.parseColor("#b8641b"));
+        dbHelper =new MyDatabaseHelper(this, MyDatabaseHelper.DATABASE_NAME, null, 1);
 
-    }
-=======
->>>>>>> c6ed71ca04b4ee4939e2e58d0824b840a9e8ebda
 
-        dbHelper = new MyDatabaseHelper(this, MyDatabaseHelper.DATABASE_NAME, null, 1);
+
+
+        //dbHelper =new MyDatabaseHelper(this, MyDatabaseHelper.DATABASE_NAME, null, 1);
         List<Entry> dataObjects = dbHelper.getAllEntry();
         PieChart chart = (PieChart) findViewById(R.id.pie_chart);
 
