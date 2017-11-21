@@ -8,12 +8,12 @@
 
     <Button
         android:id="@+id/contact_friend_button"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="100dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="16dp"
-        android:background="#3498db"
+        android:background="#ff6a54"
         android:onClick="contactFriend"
         android:text="Talk to a Friend"
         android:textAllCaps="false"
@@ -22,16 +22,18 @@
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 
     <Button
         android:id="@+id/contact_professional_button"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="100dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="16dp"
-        android:background="#9b59b6"
+        android:background="#ff9475"
         android:onClick="contactProfessional"
         android:text="Speak to a Professional"
         android:textAllCaps="false"
@@ -40,5 +42,7 @@
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contact_friend_button" />
+        app:layout_constraintTop_toBottomOf="@+id/contact_friend_button"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 </android.support.constraint.ConstraintLayout>

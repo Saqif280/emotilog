@@ -20,16 +20,25 @@ import static android.R.attr.data;
 import static android.R.attr.id;
 import static android.R.attr.name;
 import static android.os.Build.ID;
+import static com.emotilog.app.emotilog.R.id.bar;
 import static com.emotilog.app.emotilog.R.id.date;
 import static com.emotilog.app.emotilog.R.id.faccina;
-import static com.emotilog.app.emotilog.R.id.picoftheday;
+import static com.emotilog.app.emotilog.R.id.picoftheday_orizontal;
+import static com.emotilog.app.emotilog.R.id.picoftheday_vertical;
+import static com.emotilog.app.emotilog.R.id.score;
+import static com.emotilog.app.emotilog.R.id.shaking_text;
+
 import android.support.v7.app.ActionBar;
 
 public class DiaryEntryActivity extends AppCompatActivity {
     private ImageView emjoy;
-    private ImageView photo;
+    private ImageView photo_orizontal;
+    private ImageView photo_vertical;
+    private ImageView score_bar;
+    private ImageView shaking_score_text;
     private TextView diaryText;
     public TextView display_date;
+    public TextView shake_score;
     private Button showinmaps;
     private TextView locText;
     private MyDatabaseHelper dbHelper;
@@ -43,23 +52,19 @@ public class DiaryEntryActivity extends AppCompatActivity {
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#3498db")));
         this.getWindow().setStatusBarColor(Color.parseColor("#2979af"));
 
-        //prendo quello che mi serve
-        //EntryRepo repo=new EntryRepo(this);
         int id = getIntent().getIntExtra("id",0);
         final Entry e = dbHelper.getEntry(id);
-        //Log.e("ok",""+e.DATE_TIME);
 
         //tutti gli associamenti con xml
         diaryText = (TextView) findViewById(R.id.textView);
         display_date = (TextView) findViewById(R.id.date);
         showinmaps = (Button) findViewById(R.id.showLocation);
         emjoy=(ImageView)findViewById(faccina);
-        photo=(ImageView)findViewById(picoftheday);
-        //String diary_id = getIntent().getStringExtra("id");
-        //String date_display = getIntent().getStringExtra("display_date");
-
-        //diaryText.setText("row with id= " + diary_id);
-        //display_date.setText("entry date= " + date_display);
+        photo_orizontal=(ImageView)findViewById(picoftheday_orizontal);
+        photo_vertical=(ImageView)findViewById(picoftheday_vertical);
+        shake_score= (TextView)findViewById(score);
+        score_bar= (ImageView) findViewById(bar);
+        shaking_score_text= (ImageView) findViewById(shaking_text);
 
 
         showinmaps.setOnClickListener(new View.OnClickListener() {
@@ -70,9 +75,31 @@ public class DiaryEntryActivity extends AppCompatActivity {
                     Intent ShowInMapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                     ShowInMapIntent.setPackage("com.google.android.apps.maps");
                     startActivity(ShowInMapIntent);
-                }}
+                }
+                else Toast.makeText(DiaryEntryActivity.this, "No location in this entry",
+                        Toast.LENGTH_LONG).show();
+            }
         });
-        //Log.e("ok","prima swith");
+
+        if(e.PHOTO!=null) {
+            Bitmap  photo = null ;
+            photo=BitmapFactory.decodeByteArray(e.PHOTO, 0, e.PHOTO.length);
+            if(photo.getHeight()>=photo.getWidth()){
+                photo_vertical.setImageBitmap(photo);
+                photo_orizontal.setVisibility(View.INVISIBLE);
+            }
+            else{
+                photo_orizontal.setImageBitmap(photo);
+                photo_vertical.setVisibility(View.INVISIBLE);
+            }
+
+        }
+        else {
+            photo_vertical.setVisibility(View.INVISIBLE);
+            photo_orizontal.setVisibility(View.INVISIBLE);
+        }
+
+
         if (e.FEALING == 1)
             emjoy.setImageResource(R.drawable.laugh_color);
         else if (e.FEALING == 2)
@@ -83,12 +110,24 @@ public class DiaryEntryActivity extends AppCompatActivity {
             emjoy.setImageResource(R.drawable.cry_color);
         else if(e.FEALING==5)
             emjoy.setImageResource(R.drawable.angry_color);
-        //Log.e("ok","dopo swith");
-        display_date.setText(e.DATE_TIME);
-        diaryText.setText(e.TEXT);
-        if(e.PHOTO!=null) photo.setImageBitmap(BitmapFactory.decodeByteArray(e.PHOTO, 0, e.PHOTO.length));
-        else photo.setVisibility(View.INVISIBLE);
 
-        //locText.setText("Location: "+"\n"+e.LOCATION.substring(e.LOCATION.lastIndexOf("=")+1));
+        display_date.setText(e.DATE_TIME);
+
+        diaryText.setText(e.TEXT);
+        //e.SHAKESCORE = 80;
+        if(e.getShakescore()<40){
+            shake_score.setText("No Shaking Score");
+            score_bar.setVisibility(View.INVISIBLE);
+            shaking_score_text.setVisibility(View.INVISIBLE);
+        }
+        else {
+            shake_score.setText("" + e.getShakescore());
+            if (e.getShakescore() >= 90) score_bar.setImageResource(R.drawable.top_score);
+            else if (e.getShakescore() >= 80) score_bar.setImageResource(R.drawable.score_80);
+            else if (e.getShakescore() >= 70) score_bar.setImageResource(R.drawable.score_70);
+            else if (e.getShakescore() >= 60) score_bar.setImageResource(R.drawable.score_60);
+            else if (e.getShakescore() >= 50) score_bar.setImageResource(R.drawable.score_50);
+            else if (e.getShakescore() >= 40) score_bar.setImageResource(R.drawable.score_40);
+        }
     }
 }
