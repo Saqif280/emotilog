@@ -79,7 +79,7 @@ public class AnalyticsActivity extends AppCompatActivity {
             entries.add(new com.github.mikephil.charting.data.PieEntry(angry, "Angered"));
         }
 
-        PieDataSet dataSet = new PieDataSet(entries, "Feelings");
+        PieDataSet dataSet = new PieDataSet(entries, "    Cumulative Feelings");
         dataSet.setColors(ColorTemplate.PASTEL_COLORS);
 
         PieData pieData = new PieData(dataSet);
