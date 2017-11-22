@@ -26,7 +26,6 @@ import static com.emotilog.app.emotilog.R.id.faccina;
 import static com.emotilog.app.emotilog.R.id.picoftheday_orizontal;
 import static com.emotilog.app.emotilog.R.id.picoftheday_vertical;
 import static com.emotilog.app.emotilog.R.id.score;
-import static com.emotilog.app.emotilog.R.id.shaking_text;
 
 import android.support.v7.app.ActionBar;
 
@@ -64,7 +63,6 @@ public class DiaryEntryActivity extends AppCompatActivity {
         photo_vertical=(ImageView)findViewById(picoftheday_vertical);
         shake_score= (TextView)findViewById(score);
         score_bar= (ImageView) findViewById(bar);
-        shaking_score_text= (ImageView) findViewById(shaking_text);
 
 
         showinmaps.setOnClickListener(new View.OnClickListener() {
@@ -118,7 +116,6 @@ public class DiaryEntryActivity extends AppCompatActivity {
         if(e.getShakescore()<40){
             shake_score.setText("No Shaking Score");
             score_bar.setVisibility(View.INVISIBLE);
-            shaking_score_text.setVisibility(View.INVISIBLE);
         }
         else {
             shake_score.setText("" + e.getShakescore());
