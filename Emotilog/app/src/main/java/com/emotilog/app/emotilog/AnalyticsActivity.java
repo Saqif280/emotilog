@@ -64,19 +64,19 @@ public class AnalyticsActivity extends AppCompatActivity {
         }
 
         if (laugh > 0) {
-            entries.add(new com.github.mikephil.charting.data.PieEntry(laugh, "Laugh"));
+            entries.add(new com.github.mikephil.charting.data.PieEntry(laugh, "Laughing"));
         }
         if (smile > 0) {
-            entries.add(new com.github.mikephil.charting.data.PieEntry(smile, "Smile"));
+            entries.add(new com.github.mikephil.charting.data.PieEntry(smile, "Smiling"));
         }
         if (sad > 0) {
-            entries.add(new com.github.mikephil.charting.data.PieEntry(sad, "Sad"));
+            entries.add(new com.github.mikephil.charting.data.PieEntry(sad, "Frowning"));
         }
         if (cry > 0) {
-            entries.add(new com.github.mikephil.charting.data.PieEntry(cry, "Cry"));
+            entries.add(new com.github.mikephil.charting.data.PieEntry(cry, "Crying"));
         }
         if (angry > 0) {
-            entries.add(new com.github.mikephil.charting.data.PieEntry(angry, "Angry"));
+            entries.add(new com.github.mikephil.charting.data.PieEntry(angry, "Angered"));
         }
 
         PieDataSet dataSet = new PieDataSet(entries, "Feelings");
