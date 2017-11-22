@@ -52,13 +52,13 @@ public class PieChartActivity extends AppCompatActivity {
             if (dataObjects.get(i).getFealing() == 5) angry++;
         }
 
-        entries.add(new com.github.mikephil.charting.data.PieEntry(smile, "Smile"));
-        entries.add(new com.github.mikephil.charting.data.PieEntry(angry, "Angry"));
-        entries.add(new com.github.mikephil.charting.data.PieEntry(cry, "Cry"));
-        entries.add(new com.github.mikephil.charting.data.PieEntry(laugh, "Laugh"));
-        entries.add(new com.github.mikephil.charting.data.PieEntry(sad, "Sad"));
+        entries.add(new com.github.mikephil.charting.data.PieEntry(smile, "Smiling"));
+        entries.add(new com.github.mikephil.charting.data.PieEntry(angry, "Angered"));
+        entries.add(new com.github.mikephil.charting.data.PieEntry(cry, "Crying"));
+        entries.add(new com.github.mikephil.charting.data.PieEntry(laugh, "Laughing"));
+        entries.add(new com.github.mikephil.charting.data.PieEntry(sad, "Frowning"));
 
-        PieDataSet dataSet = new PieDataSet(entries, "Feelings");
+        PieDataSet dataSet = new PieDataSet(entries, "Cumulative Emotion");
         dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         dataSet.setValueTextColor(R.color.colorAccent);
 
