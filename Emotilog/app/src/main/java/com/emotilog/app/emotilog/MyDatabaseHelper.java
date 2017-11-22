@@ -147,13 +147,11 @@ public class MyDatabaseHelper extends SQLiteOpenHelper implements BaseColumns {
     }
 
     //provides to DiaryActivity reverse order listView (from latest to oldest)
-    public List<Entry> getAllReverseEntry() {//get all entry by cursor
+    public List<Entry> getAllReverseEntry() {
         List<Entry> entryList = new ArrayList<Entry>();
-        // Select All Query
         String selectQuery = "SELECT * FROM " + TABLE_ENTRYS;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-        // looping through all rows and adding to list
         if (cursor.moveToLast()) {
             do {
                 Entry entry = new Entry();
@@ -164,12 +162,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper implements BaseColumns {
                 entry.FEALING=(cursor.getInt(4));
                 entry.SHAKESCORE=(cursor.getInt(5));
                 entry.LOCATION=(cursor.getString(6));
-                //Log.e("what",""+entryList.size());
-                // Adding contact to list
+
                 entryList.add(entry);
             } while (cursor.moveToPrevious());
         }
-        // return entry list
         return entryList;
     }
 }

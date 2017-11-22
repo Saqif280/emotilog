@@ -43,17 +43,6 @@ public class DiaryActivity extends AppCompatActivity {
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#3498db")));
         this.getWindow().setStatusBarColor(Color.parseColor("#2979af"));
 
-        //opens the AddEntryActivity
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(DiaryActivity.this, AddEntryActivity.class);
-                startActivity(intent);
-            }
-
-        });
-
         dbHelper = new MyDatabaseHelper(this, MyDatabaseHelper.DATABASE_NAME, null, 1);
         listView = (ListView) findViewById(R.id.list_view_id);
         final List<Entry> entrys = dbHelper.getAllReverseEntry();
