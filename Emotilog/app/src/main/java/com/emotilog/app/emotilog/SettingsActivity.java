@@ -98,6 +98,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
     }
+    //clearing all the entry in the database
     public void update(View v){
         dbHelper.onUpgrade(dbHelper.getWritableDatabase(),1,2);
     }

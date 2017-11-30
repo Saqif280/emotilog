@@ -14,6 +14,7 @@ import java.util.List;
 
 /**
  * Created by Filippo 17202832
+ * and Chen
  */
 
 public class MyDatabaseHelper extends SQLiteOpenHelper implements BaseColumns {
@@ -22,10 +23,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper implements BaseColumns {
     // Database Name
     public static final String DATABASE_NAME = "entries.db";
 
-    // table name
+    // Table name
     public static final String TABLE_ENTRYS = "entries";
-
-
 
     //Columns names
     private static final String _ID = BaseColumns._ID;
@@ -36,15 +35,11 @@ public class MyDatabaseHelper extends SQLiteOpenHelper implements BaseColumns {
     private static final String KEY_LOCATION = "location";
     private static final String KEY_SHAKESCORE = "shakescore";
 
-
-
-
     public MyDatabaseHelper(Context context, String name,
                             SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
 
     }
-
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -62,7 +57,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper implements BaseColumns {
         db.execSQL(CREATE_TABLE_ENTRY);
         //Toast.makeText(myContent, "Database built", Toast.LENGTH_SHORT).show();
     }
-
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion,
