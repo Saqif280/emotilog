@@ -13,8 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Chen on 2017/11/6.
- * this activity is for SQLite helper
+ * Created by Filippo 17202832
  */
 
 public class MyDatabaseHelper extends SQLiteOpenHelper implements BaseColumns {
@@ -23,11 +22,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper implements BaseColumns {
     // Database Name
     public static final String DATABASE_NAME = "entries.db";
 
-    // Contacts table name
+    // table name
     public static final String TABLE_ENTRYS = "entries";
 
-    private Context myContent;
-    private Context con;
+
 
     //Columns names
     private static final String _ID = BaseColumns._ID;
@@ -38,25 +36,15 @@ public class MyDatabaseHelper extends SQLiteOpenHelper implements BaseColumns {
     private static final String KEY_LOCATION = "location";
     private static final String KEY_SHAKESCORE = "shakescore";
 
-    /*public static final String CREATE_ENTRY = "CREATE TABLE Entry ("
-            + "id  integer PRIMARY KEY Autoincrement ,"
-            + "state text ,"
-            + "emoji_id integer ,"
-            + "time text,"
-            + "image blob )";
-*/
+
 
 
     public MyDatabaseHelper(Context context, String name,
                             SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
-        myContent=context;
+
     }
 
-    public MyDatabaseHelper(Context context) {
-        super(context, "entries.db", null, 1);
-        con = context;
-    }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -82,8 +70,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper implements BaseColumns {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ENTRYS);
         onCreate(db);
     }
-
-    public int addEntry(Entry entry) {//add entry
+    //add entry
+    public int addEntry(Entry entry) {
         SQLiteDatabase db = this.getWritableDatabase();
         Log.e("my tag","adding entry with fealing"+entry.getFealing());
         ContentValues values = new ContentValues();
@@ -99,28 +87,29 @@ public class MyDatabaseHelper extends SQLiteOpenHelper implements BaseColumns {
         db.close();
         return  (int)entry_id;
     }
-
-    public Entry getEntry(int id) {//get entry from table
+    //get entry from table
+    public Entry getEntry(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor =  db.rawQuery( "select * from "+TABLE_ENTRYS+" where "+_ID+"="+id+"", null );
-        //Cursor cursor = db.query(TABLE_ENTRYS, null, null, null, null, null, null, null);
+
         Entry e= new Entry();
         while(cursor.moveToNext()) {
-            e.ID = cursor.getInt(cursor.getColumnIndex(_ID));
-            e.TEXT = cursor.getString(cursor.getColumnIndex(KEY_TEXT));
-            e.PHOTO = cursor.getBlob(cursor.getColumnIndex(KEY_PHOTO));
-            e.DATE_TIME = cursor.getString(cursor.getColumnIndex(KEY_DATE_TIME));
-            //Log.e("get entry",""+ cursor.getInt(cursor.getColumnIndex(KEY_FEALING)));
-            e.FEALING = cursor.getInt(cursor.getColumnIndex(KEY_FEALING));
-            e.SHAKESCORE = cursor.getInt(cursor.getColumnIndex(KEY_SHAKESCORE));
-            e.LOCATION = cursor.getString(cursor.getColumnIndex(KEY_LOCATION));
+            e.setId(cursor.getInt(cursor.getColumnIndex(_ID)));
+            e.setText(cursor.getString(cursor.getColumnIndex(KEY_TEXT)));
+            e.setPhoto(cursor.getBlob(cursor.getColumnIndex(KEY_PHOTO)));
+            e.setDate_Time(cursor.getString(cursor.getColumnIndex(KEY_DATE_TIME)));
+            e.setFealing(cursor.getInt(cursor.getColumnIndex(KEY_FEALING)));
+            e.setShakescore(cursor.getInt(cursor.getColumnIndex(KEY_SHAKESCORE)));
+            e.setLocation(cursor.getString(cursor.getColumnIndex(KEY_LOCATION)));
 
         }
         // Closing database connection
         db.close();
         return e;
     }
-    public List<Entry> getAllEntry() {//get all entry by cursor
+
+    //Get all entry by cursor
+    public List<Entry> getAllEntry() {
         List<Entry> entryList = new ArrayList<Entry>();
         // Select All Query
         String selectQuery = "SELECT * FROM " + TABLE_ENTRYS;
@@ -130,15 +119,14 @@ public class MyDatabaseHelper extends SQLiteOpenHelper implements BaseColumns {
         if (cursor.moveToFirst()) {
             do {
                 Entry entry = new Entry();
-                entry.ID=(Integer.parseInt(cursor.getString(0)));
-                entry.TEXT=(cursor.getString(1));
-                entry.PHOTO=(cursor.getBlob(2));
-                entry.DATE_TIME=(cursor.getString(3));
-                entry.FEALING=(cursor.getInt(4));
-                entry.SHAKESCORE=(cursor.getInt(5));
-                entry.LOCATION=(cursor.getString(6));
-                //Log.e("what",""+entryList.size());
-                // Adding contact to list
+                entry.setId(Integer.parseInt(cursor.getString(0)));
+                entry.setText(cursor.getString(1));
+                entry.setPhoto(cursor.getBlob(2));
+                entry.setDate_Time(cursor.getString(3));
+                entry.setFealing(cursor.getInt(4));
+                entry.setShakescore(cursor.getInt(5));
+                entry.setLocation(cursor.getString(6));
+                // Adding entry to list
                 entryList.add(entry);
             } while (cursor.moveToNext());
         }
@@ -155,13 +143,13 @@ public class MyDatabaseHelper extends SQLiteOpenHelper implements BaseColumns {
         if (cursor.moveToLast()) {
             do {
                 Entry entry = new Entry();
-                entry.ID=(Integer.parseInt(cursor.getString(0)));
-                entry.TEXT=(cursor.getString(1));
-                entry.PHOTO=(cursor.getBlob(2));
-                entry.DATE_TIME=(cursor.getString(3));
-                entry.FEALING=(cursor.getInt(4));
-                entry.SHAKESCORE=(cursor.getInt(5));
-                entry.LOCATION=(cursor.getString(6));
+                entry.setId(Integer.parseInt(cursor.getString(0)));
+                entry.setText(cursor.getString(1));
+                entry.setPhoto(cursor.getBlob(2));
+                entry.setDate_Time(cursor.getString(3));
+                entry.setFealing(cursor.getInt(4));
+                entry.setShakescore(cursor.getInt(5));
+                entry.setLocation(cursor.getString(6));
 
                 entryList.add(entry);
             } while (cursor.moveToPrevious());

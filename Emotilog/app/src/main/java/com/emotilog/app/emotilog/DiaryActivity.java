@@ -72,7 +72,7 @@ public class DiaryActivity extends AppCompatActivity {
         //of the entry
         final int size = entrys.size();
         for (int i = 0; i < size; i++) {
-            stringArrayList.add(entrys.get(i).DATE_TIME.toString());
+            stringArrayList.add(entrys.get(i).getDate_Time().toString());
         }
 
         stringArrayAdapter.notifyDataSetChanged();
@@ -84,7 +84,7 @@ public class DiaryActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long Long) {
                 Intent intent = new Intent(DiaryActivity.this, DiaryEntryActivity.class);
-                intent.putExtra("id", entrys.get(position).ID);
+                intent.putExtra("id", entrys.get(position).getId());
                 startActivity(intent);
             }
         });

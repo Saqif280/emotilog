@@ -364,19 +364,19 @@ public class AddEntryActivity extends AppCompatActivity {
             return;
         }
         Entry entry=new Entry();
-        entry.TEXT=((EditText)findViewById(R.id.new_entry_text)).getText().toString();
-        entry.FEALING=emoji_id;
+        entry.setText(((EditText)findViewById(R.id.new_entry_text)).getText().toString());
+        entry.setFealing(emoji_id);
         SimpleDateFormat format = new SimpleDateFormat("EEE - dd MMM yyyy, hh:mm");
         Date date = new Date(System.currentTimeMillis());
         String time_tag = format.format(date);
         Log.e("time: ",""+time_tag);
-        entry.DATE_TIME=time_tag;
-        if(os!=null)entry.PHOTO=os.toByteArray();
-        if(shakescore!=0)entry.SHAKESCORE=shakescore;
+        entry.setDate_Time(time_tag);
+        if(os!=null)entry.setPhoto(os.toByteArray());
+        if(shakescore!=0)entry.setShakescore(shakescore);
 
         if(location!=null)
         {
-            entry.LOCATION="geo:"+ String.valueOf(location.getLatitude())+","+String.valueOf(location.getLongitude());
+            entry.setLocation("geo:"+ String.valueOf(location.getLatitude())+","+String.valueOf(location.getLongitude()));
         }
         dbHelper.addEntry(entry);
 

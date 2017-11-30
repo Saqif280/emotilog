@@ -29,6 +29,10 @@ import static com.emotilog.app.emotilog.R.id.score;
 
 import android.support.v7.app.ActionBar;
 
+/**
+ * Created by Filippo 17202832
+ */
+
 public class DiaryEntryActivity extends AppCompatActivity {
     private ImageView emjoy;
     private ImageView photo_orizontal;
@@ -54,7 +58,7 @@ public class DiaryEntryActivity extends AppCompatActivity {
         int id = getIntent().getIntExtra("id",0);
         final Entry e = dbHelper.getEntry(id);
 
-        //tutti gli associamenti con xml
+        //connection java obj to the xml obj
         diaryText = (TextView) findViewById(R.id.textView);
         display_date = (TextView) findViewById(R.id.date);
         showinmaps = (Button) findViewById(R.id.showLocation);
@@ -64,12 +68,13 @@ public class DiaryEntryActivity extends AppCompatActivity {
         shake_score= (TextView)findViewById(score);
         score_bar= (ImageView) findViewById(bar);
 
-
+        //botton that send an intent to google maps to show the location
+        //stored in the entry
         showinmaps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(e.getLocation()!=null) {
-                    Uri gmmIntentUri = Uri.parse(e.LOCATION.toString());
+                    Uri gmmIntentUri = Uri.parse(e.getLocation().toString());
                     Intent ShowInMapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                     ShowInMapIntent.setPackage("com.google.android.apps.maps");
                     startActivity(ShowInMapIntent);
@@ -78,10 +83,10 @@ public class DiaryEntryActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
         });
-
-        if(e.PHOTO!=null) {
+        //if there is a photo in this entry show it
+        if(e.getPhoto()!=null) {
             Bitmap  photo = null ;
-            photo=BitmapFactory.decodeByteArray(e.PHOTO, 0, e.PHOTO.length);
+            photo=BitmapFactory.decodeByteArray(e.getPhoto(), 0, e.getPhoto().length);
             if(photo.getHeight()>=photo.getWidth()){
                 photo_vertical.setImageBitmap(photo);
                 photo_orizontal.setVisibility(View.INVISIBLE);
@@ -92,31 +97,33 @@ public class DiaryEntryActivity extends AppCompatActivity {
             }
 
         }
+        //if there is no photo the ImageView is not visibile
         else {
             photo_vertical.setVisibility(View.INVISIBLE);
             photo_orizontal.setVisibility(View.INVISIBLE);
         }
 
-
-        if (e.FEALING == 1)
+        //show the emoji of this entry
+        if (e.getFealing() == 1)
             emjoy.setImageResource(R.drawable.laugh_color);
-        else if (e.FEALING == 2)
+        else if (e.getFealing() == 2)
             emjoy.setImageResource(R.drawable.smile_color);
-        else if(e.FEALING==3)
+        else if(e.getFealing()==3)
             emjoy.setImageResource(R.drawable.sad_color);
-        else if(e.FEALING==4)
+        else if(e.getFealing()==4)
             emjoy.setImageResource(R.drawable.cry_color);
-        else if(e.FEALING==5)
+        else if(e.getFealing()==5)
             emjoy.setImageResource(R.drawable.angry_color);
-
-        display_date.setText(e.DATE_TIME);
-
-        diaryText.setText(e.TEXT);
-        //e.SHAKESCORE = 80;
+        //show the date and the time
+        display_date.setText(e.getDate_Time());
+        //show the text
+        diaryText.setText(e.getText());
+        //if there is a shakescore show the score
         if(e.getShakescore()<40){
             shake_score.setText("No Shaking Score");
             score_bar.setVisibility(View.INVISIBLE);
         }
+        //evry score range had a different image
         else {
             shake_score.setText("" + e.getShakescore());
             if (e.getShakescore() >= 90) score_bar.setImageResource(R.drawable.top_score);
