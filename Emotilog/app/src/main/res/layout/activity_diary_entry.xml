@@ -122,7 +122,7 @@
             android:layout_marginTop="16dp"
             app:layout_constraintLeft_toRightOf="@+id/faccina"
             app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:srcCompat="@drawable/top_score" />
+            app:srcCompat="@drawable/score_80" />
 
         <TextView
             android:id="@+id/textView2"

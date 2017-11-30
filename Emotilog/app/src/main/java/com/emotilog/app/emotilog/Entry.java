@@ -17,7 +17,7 @@ public class Entry {
     private String LOCATION;
     private int SHAKESCORE;
 
-
+    //constructor
     public Entry(){}
 
     //trivial functions

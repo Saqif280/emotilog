@@ -1,6 +1,5 @@
 package com.emotilog.app.emotilog;
 
-import android.content.ComponentName;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,19 +8,13 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static android.R.attr.data;
-import static android.R.attr.id;
-import static android.R.attr.name;
-import static android.os.Build.ID;
 import static com.emotilog.app.emotilog.R.id.bar;
-import static com.emotilog.app.emotilog.R.id.date;
 import static com.emotilog.app.emotilog.R.id.faccina;
 import static com.emotilog.app.emotilog.R.id.picoftheday_orizontal;
 import static com.emotilog.app.emotilog.R.id.picoftheday_vertical;
@@ -119,19 +112,19 @@ public class DiaryEntryActivity extends AppCompatActivity {
         //show the text
         diaryText.setText(e.getText());
         //if there is a shakescore show the score
-        if(e.getShakescore()<40){
+        if(e.getShakescore()<14){
             shake_score.setText("No Shaking Score");
             score_bar.setVisibility(View.INVISIBLE);
         }
         //evry score range had a different image
         else {
             shake_score.setText("" + e.getShakescore());
-            if (e.getShakescore() >= 90) score_bar.setImageResource(R.drawable.top_score);
-            else if (e.getShakescore() >= 80) score_bar.setImageResource(R.drawable.score_80);
+            if (e.getShakescore() >= 80) score_bar.setImageResource(R.drawable.score_80);
             else if (e.getShakescore() >= 70) score_bar.setImageResource(R.drawable.score_70);
             else if (e.getShakescore() >= 60) score_bar.setImageResource(R.drawable.score_60);
             else if (e.getShakescore() >= 50) score_bar.setImageResource(R.drawable.score_50);
             else if (e.getShakescore() >= 40) score_bar.setImageResource(R.drawable.score_40);
+            else if (e.getShakescore() >= 14) score_bar.setImageResource(R.drawable.score_14);
         }
     }
 }
