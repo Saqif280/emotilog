@@ -18,14 +18,19 @@ import java.util.Calendar;
 import static android.content.Context.ALARM_SERVICE;
 
 /**
- * Created by makri on 07-Nov-17.
+ * Created by Vasileios Makris 17202178 on 07-Nov-17.
+ *
+ * This class schedules and builds the notification.
+ *
+ *Based on
+ * https://github.com/jaisonfdo/RemindMe/blob/master/app/src/main/java/com/droidmentor/remindme/NotificationScheduler.java
  */
 
 public class NotificationScheduler {
     public static final int DAILY_REMINDER_REQUEST_CODE=100;
-    public static final String TAG="NotificationScheduler";
 
 
+    //This method creates a repeating alarm
     public static void setReminder(Context context, Class<?> cls, int hour, int min)
     {
         Calendar calendar= Calendar.getInstance();
@@ -58,6 +63,7 @@ public class NotificationScheduler {
                 pendingIntent);
     }
 
+    //This method cancels the alarm
     public static void cancelReminder(Context context, Class<?> cls){
 
         ComponentName receiver= new ComponentName(context, cls);
@@ -79,6 +85,7 @@ public class NotificationScheduler {
 
     }
 
+    //This is the method that builds the notification
     public static void showNotification(Context context, Class<?> cls, String title, String content){
 
         Uri alarmSound= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -110,4 +117,3 @@ public class NotificationScheduler {
 
 
 }
-

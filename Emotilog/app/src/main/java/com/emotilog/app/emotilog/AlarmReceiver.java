@@ -3,30 +3,32 @@ package com.emotilog.app.emotilog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
+
+/**
+ * Created by Vasileios Makris 17202178 on 07-Nov-17.
+ * This class handles the Broadcast. This receiver is invoked at the scheduled user selected time.
+ * Based on:
+ * https://github.com/jaisonfdo/RemindMe/blob/master/app/src/main/java/com/droidmentor/remindme/AlarmReceiver.java
+ */
 
 public class AlarmReceiver extends BroadcastReceiver {
 
-    String TAG= "AlarmReceiver";
+
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
         if(intent.getAction()!= null && context!=null){
             if (intent.getAction().equalsIgnoreCase(Intent.ACTION_BOOT_COMPLETED)){
-                Log.d(TAG, "onReceive:BOOT_COMPLETED");
-                LocalData localData=new LocalData(context);
+                NotificationData notificationData=new NotificationData(context);
                 NotificationScheduler.setReminder(context, AlarmReceiver.class,
-                        localData.get_hour(),
-                        localData.get_min());
+                        notificationData.get_notification_hour(),
+                        notificationData.get_notification_min());
                 return;
             }
         }
 
-        Log.d(TAG, "onReceive: ");
-        // !!!!!CHANGE TARGET CLASS!!!!!
         NotificationScheduler.showNotification(context, AddEntryActivity.class,
                 "Add a new log!", "Write about your day :)");
     }
 }
-
